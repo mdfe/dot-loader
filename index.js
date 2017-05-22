@@ -8,6 +8,9 @@ module.exports = function(content) {
   
   dot.templateSettings.selfcontained = true;
 
-  var content = fs.readFileSync(this.resourcePath);
+  var content = fs.readFileSync(this.resourcePath, 'utf8');
+  if(content && content.toString()) {
+    content = content.replace(/^\uFEFF/, '');
+  }
   return "module.exports = " + dot.template(content);
 };
